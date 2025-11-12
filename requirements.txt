@@ -5,3 +5,4 @@ pandas
 scikit-learn
 orange3
 pyqt5
+PyOpenGL
