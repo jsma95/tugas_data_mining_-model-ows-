@@ -1,65 +1,33 @@
 import streamlit as st
 import pickle
 import numpy as np
-import os
 
-st.title("🧠 Aplikasi Prediksi Data Mining")
-st.write("Aplikasi ini memuat model dari Orange (.pkcls) dan menampilkannya di Streamlit.")
-
-MODEL_ORANGE = "model_data_mining.pkcls"
-MODEL_SKLEARN = "model_sklearn.pkl"
-
-# --- Fungsi konversi model Orange ke sklearn
-def convert_orange_to_sklearn():
-    try:
-        with open(MODEL_ORANGE, "rb") as f:
-            orange_model = pickle.load(f)
-
-        # Ambil model scikit-learn dari Orange
-        skl_model = getattr(orange_model, "skl_model", None)
-        if skl_model is None:
-            st.error("❌ Model Orange tidak berbasis scikit-learn, tidak bisa dikonversi.")
-            return None
-
-        with open(MODEL_SKLEARN, "wb") as f:
-            pickle.dump(skl_model, f)
-
-        st.success("✅ Model Orange berhasil dikonversi menjadi model_sklearn.pkl")
-        return skl_model
-
-    except Exception as e:
-        st.error(f"❌ Gagal konversi model Orange: {e}")
-        return None
-
-# --- Load model (prioritaskan model sklearn)
-model = None
-if os.path.exists(MODEL_SKLEARN):
-    with open(MODEL_SKLEARN, "rb") as f:
+# Load Model
+try:
+    with open("model_data_mining.pkcls", "rb") as f:
         model = pickle.load(f)
-    st.success("✅ Model sklearn berhasil dimuat.")
-elif os.path.exists(MODEL_ORANGE):
-    st.warning("⚠️ File model Orange ditemukan, mencoba konversi ke sklearn...")
-    model = convert_orange_to_sklearn()
-else:
-    st.error("❌ Tidak ditemukan file 'mode_data_mining.pkcls' atau 'model_sklearn.pkl'.")
+    st.success("✅ Model berhasil dimuat.")
+except Exception as e:
+    st.error(f"❌ Gagal memuat model: {e}")
+    st.stop()
 
-# --- Jika model sudah siap
-if model:
-    st.subheader("Masukkan Nilai Fitur")
+st.title("💼 Employee Attrition Predictor")
+st.write("Aplikasi sederhana untuk memprediksi apakah seorang karyawan akan bertahan atau keluar dari perusahaan.")
 
-    # Ubah sesuai jumlah kolom dataset kamu
-    fitur1 = st.number_input("Fitur 1", value=0.0)
-    fitur2 = st.number_input("Fitur 2", value=0.0)
-    fitur3 = st.number_input("Fitur 3", value=0.0)
-    fitur4 = st.number_input("Fitur 4", value=0.0)
+# Input fitur (ubah sesuai dengan dataset kamu)
+age = st.number_input("Usia Karyawan", min_value=18, max_value=65, step=1)
+salary = st.number_input("Gaji (USD/Bulan)", min_value=0.0, step=100.0)
+years_at_company = st.number_input("Lama Bekerja (Tahun)", min_value=0.0, step=0.5)
+satisfaction = st.slider("Tingkat Kepuasan (%)", 0, 100, 50)
 
-    data = np.array([[fitur1, fitur2, fitur3, fitur4]])
+# Siapkan data
+features = np.array([[age, salary, years_at_company, satisfaction]])
 
-    if st.button("🔮 Prediksi"):
-        try:
-            pred = model.predict(data)
-            st.subheader("🎯 Hasil Prediksi")
-            st.success(f"Hasil model: **{pred[0]}**")
-        except Exception as e:
-            st.error(f"❌ Gagal melakukan prediksi: {e}")
-
+# Prediksi
+if st.button("Prediksi"):
+    try:
+        prediction = model(features)[0] if callable(model) else model.predict(features)[0]
+        st.subheader("Hasil Prediksi")
+        st.success(f"📊 Prediksi: *{prediction}*")
+    except Exception as e:
+        st.error(f"❌ Terjadi kesalahan saat prediksi: {e}")
