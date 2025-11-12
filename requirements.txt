@@ -4,3 +4,4 @@ scikit-learn
 orange3
 pandas
 pyqt5
+pickle
