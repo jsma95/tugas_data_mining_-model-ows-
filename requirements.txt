@@ -1,4 +1,5 @@
 streamlit
 numpy
-scikit-learn
+pickle-mixin
 orange3
+opencv-python-headless
