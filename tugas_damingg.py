@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Load Model
-with open("model-iris.pkcls", "rb") as f:
+with open("model_ows.pkcls", "rb") as f:
     model = pickle.load(f)
 
 st.title("🌸 Iris Flower Classifier 🌸")
@@ -24,3 +24,4 @@ if st.button("Prediksi"):
     
     st.subheader("Hasil Prediksi")
     st.success(f"🌼 Jenis Bunga: *{prediction}*")
+
