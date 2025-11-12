@@ -6,7 +6,7 @@ import os
 st.title("🧠 Aplikasi Prediksi Data Mining")
 st.write("Aplikasi ini memuat model dari Orange (.pkcls) dan menampilkannya di Streamlit.")
 
-MODEL_ORANGE = "mode_data_mining.pkcls"
+MODEL_ORANGE = "model_data_mining.pkcls"
 MODEL_SKLEARN = "model_sklearn.pkl"
 
 # --- Fungsi konversi model Orange ke sklearn
@@ -62,3 +62,4 @@ if model:
             st.success(f"Hasil model: **{pred[0]}**")
         except Exception as e:
             st.error(f"❌ Gagal melakukan prediksi: {e}")
+
