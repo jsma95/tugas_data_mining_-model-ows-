@@ -9,7 +9,7 @@ st.write("Aplikasi sederhana untuk memprediksi apakah seorang karyawan akan bert
 
 # Load Model
 try:
-    with open("model_sklearn.pkl", "rb") as f:
+    with open("model_tree.pkl", "rb") as f:
         model = pickle.load(f)
     st.success("✅ Model berhasil dimuat.")
 except Exception as e:
@@ -38,3 +38,4 @@ if st.button("Prediksi"):
         st.success(f"📊 Prediksi: *{prediction}*")
     except Exception as e:
         st.error(f"❌ Terjadi kesalahan saat prediksi: {e}")
+
