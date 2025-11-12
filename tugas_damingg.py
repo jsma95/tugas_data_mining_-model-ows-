@@ -7,7 +7,7 @@ st.write("Aplikasi sederhana untuk memprediksi data karyawan menggunakan model s
 
 # Load model
 try:
-    with open("model_sklearn.pkl", "rb") as f:
+    with open("model_data_mining,pkcls", "rb") as f:
         model = pickle.load(f)
     st.success("✅ Model berhasil dimuat.")
 except Exception as e:
@@ -31,3 +31,4 @@ if st.button("🔍 Prediksi"):
         st.success(f"📊 Prediksi Model: **{prediction}**")
     except Exception as e:
         st.error(f"⚠️ Gagal melakukan prediksi: {e}")
+
