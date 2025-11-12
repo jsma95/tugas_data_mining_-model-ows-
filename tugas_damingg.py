@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # non-GUI backend
+matplotlib.use('Agg')  # Non-GUI backend agar tidak butuh display
 
 st.title("💼 Employee Attrition Predictor")
 st.write("Aplikasi sederhana untuk memprediksi apakah seorang karyawan akan bertahan atau keluar dari perusahaan.")
@@ -38,4 +38,3 @@ if st.button("Prediksi"):
         st.success(f"📊 Prediksi: *{prediction}*")
     except Exception as e:
         st.error(f"❌ Terjadi kesalahan saat prediksi: {e}")
-
