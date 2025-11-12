@@ -1,6 +1,8 @@
 import streamlit as st
 import pickle
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # gunakan backend non-GUI
 
 # Load Model
 try:
@@ -31,3 +33,4 @@ if st.button("Prediksi"):
         st.success(f"📊 Prediksi: *{prediction}*")
     except Exception as e:
         st.error(f"❌ Terjadi kesalahan saat prediksi: {e}")
+
