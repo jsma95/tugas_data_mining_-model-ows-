@@ -2,3 +2,4 @@ streamlit
 numpy
 pandas
 scikit-learn
+opencv-python-headless==4.10.0.84
